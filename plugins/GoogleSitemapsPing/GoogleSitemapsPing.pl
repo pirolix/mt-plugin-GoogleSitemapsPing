@@ -11,7 +11,7 @@ use LWP::UserAgent;# for ping
 
 use vars qw( $MYNAME $VERSION );
 $MYNAME = __PACKAGE__;
-$VERSION = '0.10';
+$VERSION = '0.11';
 
 ;# ƒvƒ‰ƒOƒCƒ“‚ð“o˜^
 if( MT->can( 'add_plugin' )) {
@@ -36,8 +36,10 @@ sub google_sitemaps_ping {
 	my $template = $args->{template}
 		or return sprintf 'MT%s error: <template> should be specified.',
 				$ctx->stash('tag');
-	my $file_url = MT::Template::Context::_hdlr_link (
-			$ctx, {'template' => $template}, $cond)
+	my $file_url = 4 <= $MT::VERSION
+	    ? $ctx->tag ('Link', {'template' => $template})
+	    : MT::Template::Context::_hdlr_link ($ctx, {'template' => $template}, $cond);
+    $file_url
 		or return sprintf 'MT%s error: a template which named "%s" is not found.',
 				$ctx->stash('tag'), $template;
 
