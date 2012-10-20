@@ -1,4 +1,5 @@
 package MT::Plugin::OMV::GoogleSitemapsPing;
+# $Id$
 #   MTGoogleSitemapsPing - Google Sitemaps に URL の更新 ping を送信する
 #   @see http://www.magicvox.net/archive/2006/05201647.php
 #           Programmed by Piroli YUKARINOMIYA (MagicVox)
@@ -9,9 +10,10 @@ use MT::Template::Context;
 use LWP::UserAgent;# for ping
 ;#use Data::Dumper;#DEBUG
 
-use vars qw( $MYNAME $VERSION );
-$MYNAME = __PACKAGE__;
-$VERSION = '0.11';
+use vars qw( $VENDOR $MYNAME $VERSION );
+($VENDOR, $MYNAME) = (split /::/, __PACKAGE__)[-2, -1];
+(my $revision = '$Rev$') =~ s/\D//g;
+$VERSION = '0.11'. ($revision ? ".$revision" : '');
 
 ;# プラグインを登録
 if( MT->can( 'add_plugin' )) {
